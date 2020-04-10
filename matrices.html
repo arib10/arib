@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        div.container{
+            width: 80%;margin: auto;background-color: #fff;padding: 20px 10px; border-radius: 10px;box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);font-family: lucida sans;margin-top: 50px;
+        }
+        p.headtext{
+            font-size: 20px;text-align: center;
+        }
+        div.first-box, div.first-box span, div.first-box p{
+            padding: 10px;margin: 5px;
+        }
+        button{
+            padding: 5px 10px;margin: 5px;
+        }
+        
+     tr, td{
+        border: 1px solid #222;border-collapse: collapse;padding: 5px 10px;
+    }
+    table{
+        margin:10px;
+    }
+    div.btnDiv{
+        margin: 10px;
+    }
+    table tr td{
+        min-width: 40px;min-height: 40px;
+    }
+        [id*='comm']{text-align: center;}
+        
+    [class*='by']{
+        display: flex; justify-content: space-around;display: none;flex-wrap: wrap;
+    }
+    div.one2by2,div.one2by3, div.one3by2, div.one3by3, .btnDiv, #myanswer{
+        display: none;
+    }
+    div.mymodal{
+        background-color:rgba(0,0,0,0.1);position:fixed; top:0px;right:0px;width:100%;height:100%;padding-top:100px;z-index:1;display:none;overflow: auto;
+    }
+    @keyframes pop{
+        0%{margin-top:-100px; transform:scale(0.1);}
+        70%{margin-top:0px; transform: scale(1)}
+        100%{margin-top:20px; transform: scale(1)}
+    }
+    div.answersBox22,div.answersBox23,div.answersBox32,div.answersBox33, div.touse{
+        width:50%;background-color:#fff;padding:10px;border-radius:10px;margin:auto; animation:pop 1s ease;overflow: auto;height: auto;margin-bottom: 50px;
+    }
+        ul, li{
+            margin: 5px; padding: 5px;
+        }
+    div.answersBox22 table, div.answersBox23 table, div.answersBox32 table,div.answersBox33 table{
+        width:50%; margin:auto;
+    }
+        @media screen and (max-width:700px){  
+            
+    div.answersBox22,div.answersBox23,div.answersBox32,div.answersBox33, div.touse{
+        width:80%;
+    }
+            div.container{
+                width: 90%;
+            }
+            
+            [class*='by']{
+                flex-direction: column;
+            }
+            h2.operator{
+                text-align: center;
+            }
+        }
+    </style>
+    <title>Full Matrices</title>
+</head>
+<body>
+    
+    
+<div class="container">
+    
+    <div class="mymodal" id="help">
+<span onclick="this.parentElement.style.display = 'none';" style="font-size:36px; font-weight:bold;position:absolute; top:10px; right:20px;cursor:pointer;color: red">×</span>
+        <div class="touse">
+    <h2 style="text-align: center">How to use</h2>
+    <ul>
+        <li>Select the operation, number, and matrix order correctly</li>
+        <li>click the 'go' button to get your requested operaton and numbers</li>
+        <li>click on the box you want to fill with value(s)</li>
+        <li>Use the numbered buttons below to enter your corresponding number(s) of wish</li>
+        <li>Click on the 'Get Answer' button to see your answer. </li>
+        <li>close the pop up with the red 'x' sign right top</li>
+        <li>leave your feedback by using the feedback button.</li>
+    </ul>
+    </div>
+    </div>
+    
+    <p class="headtext">ARIB's MATRICES SOLVER</p>
+    <p onclick="document.getElementById('help').style.display = 'block'; " style="color: blue;cursor: pointer;text-align: center;">How to use&#63;</p>
+    
+<div class="mymodal">
+<span onclick="this.parentElement.style.display = 'none';" style="font-size:36px; font-weight:bold;position:absolute; top:10px; right:20px;cursor:pointer;color: red">×</span>
+    <div class="answersBox22">
+    <p id="comm"></p>
+        <ul style="list-style-type: none" id="ulinv2">
+        <li style="margin-bottom: -60px;line-height: 1.5;display: none;" id="linv2"></li>
+        </ul>
+    <table class="twoby2answer">
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <p id="determinantAns"></p>
+</div>
+<!--answer table for three-by-two-->
+<div class="answersBox32">
+    <p id="comm1"></p>
+    <table class="ans32table">
+    <tr>
+        <td><sub>a<sub>11</sub></sub></td>
+        <td><sub>a<sub>12</sub></sub></td>
+    </tr>
+    <tr>
+        <td><sub>a<sub>21</sub></sub></td>
+        <td><sub>a<sub>22</sub></sub></td>
+    </tr>
+    <tr>
+        <td><sub>a<sub>31</sub></sub></td>
+        <td><sub>a<sub>32</sub></sub></td>
+    </tr>
+</table>
+</div>
+
+<!--answer table for two-by-three-->
+<div class="answersBox23">
+    <p id="comm2"></p>
+    <table class="ans23table">
+    <tr>
+        <td><sub>a<sub>11</sub></sub></td>
+        <td id="twoby3mid1"><sub>a<sub>12</sub></sub></td>
+        <td><sub>a<sub>13</sub></sub></td>
+    </tr>
+    <tr>
+        <td><sub>a<sub>21</sub></sub></td>
+        <td id="twoby3mid2"><sub>a<sub>22</sub></sub></td>
+        <td><sub>a<sub>23</sub></sub></td>
+    </tr>
+</table>
+</div>
+    
+    
+<!--answer table for three-by-three-->
+<div class="answersBox33">
+    <p id="comm3"></p>
+        <ul style="list-style-type: none" id="ulinv3">
+        <li style="margin-bottom: -50px;margin-right: 1px;line-height: 1.8;display: none" id="linv3">1/</li>
+        </ul>
+    <table class="ans33table">
+    <tr>
+        <td><sub>a<sub>11</sub></sub></td>
+        <td id="threeby3mid1"><sub>a<sub>12</sub></sub></td>
+        <td><sub>a<sub>13</sub></sub></td>
+    </tr>
+    <tr>
+        <td><sub>a<sub>21</sub></sub></td>
+        <td id="threeby3mid2"><sub>a<sub>22</sub></sub></td>
+        <td><sub>a<sub>23</sub></sub></td>
+    </tr>
+    <tr>
+        <td><sub>a<sub>21</sub></sub></td>
+        <td id="threeby3mid3"><sub>a<sub>22</sub></sub></td>
+        <td><sub>a<sub>23</sub></sub></td>
+    </tr>
+</table>
+</div>
+    </div>
+
+    <div class="first-box">
+
+        <p>Select action</p>
+        <span>Calculate the </span>
+        <select name="" id="matrixOperation">
+            <option value="sum">Sum</option>
+            <option value="difference">Difference</option>
+            <option value="product">Product</option>
+            <option value="transpose">Transpose</option>
+            <option value="determinant">Determinant</option>
+            <option value="inverse">Inverse</option>
+        </select>
+        <span> of </span>
+
+        <select id="matrixNumber">
+            <option value="one">one</option>
+            <option value="two">two</option>
+            <option value="three">three</option>
+        </select>
+
+        <select name="" id="matrixOrder">
+            <option value="two-by-two">2 × 2</option>
+            <option value="two-by-three">2 × 3</option>
+            <option value="three-by-two">3 × 2</option>
+            <option value="three-by-three">3 × 3</option>
+        </select>
+        <span>matrices</span>
+
+        <button id="gobtn">Go</button>
+        </div>
+
+        
+<!--one two by two-->
+        <div class="one2by2">
+            <table class="table">
+                <tr>
+                    <td><sub>a<sub>11</sub></sub></td>
+                    <td><sub>a<sub>12</sub></sub></td>
+                </tr>
+                <tr>
+                    <td><sub>a<sub>21</sub></sub></td>
+                    <td><sub>a<sub>22</sub></sub></td>
+                </tr>
+            </table>
+        </div>
+
+    
+<!--two 2-by-2-->
+<div class="two2by2">
+    <table class="table">
+    <tr>
+        <td><sub>a<sub>11</sub></sub></td>
+        <td><sub>a<sub>12</sub></sub></td>
+    </tr>
+    <tr>
+        <td><sub>a<sub>21</sub></sub></td>
+        <td><sub>a<sub>22</sub></sub></td>
+    </tr>
+</table>
+
+<h2 class="operator">+</h2>
+    
+    <table class="table">
+        <tr>
+            <td><sub>b<sub>11</sub></sub></td>
+            <td><sub>b<sub>12</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>b<sub>21</sub></sub></td>
+            <td><sub>b<sub>22</sub></sub></td>
+        </tr>
+    </table>
+</div>
+
+    
+<!--three 2-by-2-->
+<div class="three2by2">
+    <table class="table">
+    <tr>
+        <td><sub>a<sub>11</sub></sub></td>
+        <td><sub>a<sub>12</sub></sub></td>
+    </tr>
+    <tr>
+        <td><sub>a<sub>21</sub></sub></td>
+        <td><sub>a<sub>22</sub></sub></td>
+    </tr>
+</table>
+
+<h2 class="operator">+</h2>
+    
+    <table class="table">
+        <tr>
+            <td><sub>b<sub>11</sub></sub></td>
+            <td><sub>b<sub>12</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>b<sub>21</sub></sub></td>
+            <td><sub>b<sub>22</sub></sub></td>
+        </tr>
+    </table>
+
+    <h2 class="operator">+</h2>
+    
+    <table class="table">
+        <tr>
+            <td><sub>c<sub>11</sub></sub></td>
+            <td><sub>c<sub>12</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>c<sub>21</sub></sub></td>
+            <td><sub>c<sub>22</sub></sub></td>
+        </tr>
+    </table>
+</div>
+<!--two by two ends here-->
+
+
+
+
+<!-- one three by three-->
+<div  class="one3by3">
+    <table class="table ">
+        <tr>
+            <td><sub>a<sub>11</sub></sub></td>
+            <td id="one3by3mid1"><sub>a<sub>12</sub></sub></td>
+            <td><sub>a<sub>13</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>21</sub></sub></td>
+            <td id="one3by3mid2"><sub>a<sub>22</sub></sub></td>
+            <td><sub>a<sub>23</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>31</sub></sub></td>
+            <td id="one3by3mid3"><sub>a<sub>32</sub></sub></td>
+            <td><sub>a<sub>33</sub></sub></td>
+        </tr>
+    </table>
+</div>
+
+
+<!-- two three by three-->
+<div  class="two3by3">
+    <table class="table">
+        <tr>
+            <td><sub>a<sub>11</sub></sub></td>
+            <td id="two3by3mid1"><sub>a<sub>12</sub></sub></td>
+            <td><sub>a<sub>13</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>21</sub></sub></td>
+            <td id="two3by3mid2"><sub>a<sub>22</sub></sub></td>
+            <td><sub>a<sub>23</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>31</sub></sub></td>
+            <td id="two3by3mid3"><sub>a<sub>32</sub></sub></td>
+            <td><sub>a<sub>33</sub></sub></td>
+        </tr>
+    </table>
+
+<h2 class="operator">+</h2>
+
+    <table class="table">
+        <tr>
+            <td><sub>b<sub>11</sub></sub></td>
+            <td id="two3by3mid4"><sub>b<sub>12</sub></sub></td>
+            <td><sub>b<sub>13</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>b<sub>21</sub></sub></td>
+            <td id="two3by3mid5"><sub>b<sub>22</sub></sub></td>
+            <td><sub>b<sub>23</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>b<sub>31</sub></sub></td>
+            <td id="two3by3mid6"><sub>b<sub>32</sub></sub></td>
+            <td><sub>b<sub>33</sub></sub></td>
+        </tr>
+    </table>    
+</div>
+
+
+<!-- three  3-by-3-->
+<div  class="three3by3">
+    <table class="table ">
+        <tr>
+            <td><sub>a<sub>11</sub></sub></td>
+            <td id="three3by3mid1"><sub>a<sub>12</sub></sub></td>
+            <td><sub>a<sub>13</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>21</sub></sub></td>
+            <td id="three3by3mid2"><sub>a<sub>22</sub></sub></td>
+            <td><sub>a<sub>23</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>31</sub></sub></td>
+            <td id="three3by3mid3"><sub>a<sub>32</sub></sub></td>
+            <td><sub>a<sub>33</sub></sub></td>
+        </tr>
+    </table>
+
+    <h2 class="operator">+</h2>
+
+    <table class="table ">
+        <tr>
+            <td><sub>b<sub>11</sub></sub></td>
+            <td id="three3by3mid4"><sub>b<sub>12</sub></sub></td>
+            <td><sub>b<sub>13</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>b<sub>21</sub></sub></td>
+            <td id="three3by3mid5"><sub>b<sub>22</sub></sub></td>
+            <td><sub>b<sub>23</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>b<sub>31</sub></sub></td>
+            <td id="three3by3mid6"><sub>b<sub>32</sub></sub></td>
+            <td><sub>b<sub>33</sub></sub></td>
+        </tr>
+    </table>
+
+    <h2 class="operator">+</h2>
+
+    <table class="table ">
+        <tr>
+            <td><sub>c<sub>11</sub></sub></td>
+            <td id="three3by3mid7"><sub>c<sub>12</sub></sub></td>
+            <td><sub>c<sub>13</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>c<sub>21</sub></sub></td>
+            <td id="three3by3mid8"><sub>c<sub>22</sub></sub></td>
+            <td><sub>c<sub>23</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>c<sub>31</sub></sub></td>
+            <td id="three3by3mid9"><sub>c<sub>32</sub></sub></td>
+            <td><sub>c<sub>33</sub></sub></td>
+        </tr>
+    </table> 
+</div>
+<!--three by three ends here..-->
+
+
+
+<!--one 2-by-3-->
+<div class="one2by3">
+    <table class="table ">
+        <tr>
+            <td><sub>a<sub>11</sub></sub></td>
+            <td id="one2by3mid1"><sub>a<sub>12</sub></sub></td>
+            <td><sub>a<sub>13</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>21</sub></sub></td>
+            <td id="one2by3mid2"><sub>a<sub>22</sub></sub></td>
+            <td><sub>a<sub>23</sub></sub></td>
+        </tr>
+    </table>
+</div>
+
+
+<!--two 2-by-3-->
+<div class="two2by3">
+    <table class="table ">
+        <tr>
+            <td><sub>a<sub>11</sub></sub></td>
+            <td id="two2by3mid1"><sub>a<sub>12</sub></sub></td>
+            <td><sub>a<sub>13</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>21</sub></sub></td>
+            <td id="two2by3mid2"><sub>a<sub>22</sub></sub></td>
+            <td><sub>a<sub>23</sub></sub></td>
+        </tr>
+    </table>
+
+    <h2 class="operator">+</h2>
+
+    <table class="table ">
+        <tr>
+            <td><sub>b<sub>11</sub></sub></td>
+            <td id="two2by3mid3"><sub>b<sub>12</sub></sub></td>
+            <td><sub>b<sub>13</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>b<sub>21</sub></sub></td>
+            <td id="two2by3mid4"><sub>b<sub>22</sub></sub></td>
+            <td><sub>b<sub>23</sub></sub></td>
+        </tr>
+    </table>
+
+</div>
+
+
+<!--three 2-by-3-->
+<div class="three2by3">
+    <table class="table ">
+        <tr>
+            <td><sub>a<sub>11</sub></sub></td>
+            <td id="three2by3mid1"><sub>a<sub>12</sub></sub></td>
+            <td><sub>a<sub>13</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>21</sub></sub></td>
+            <td id="three2by3mid2"><sub>a<sub>22</sub></sub></td>
+            <td><sub>a<sub>23</sub></sub></td>
+        </tr>
+    </table>
+
+    <h2 class="operator">+</h2>
+
+    <table class="table ">
+        <tr>
+            <td><sub>b<sub>11</sub></sub></td>
+            <td id="three2by3mid3"><sub>b<sub>12</sub></sub></td>
+            <td><sub>b<sub>13</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>b<sub>21</sub></sub></td>
+            <td id="three2by3mid4"><sub>b<sub>22</sub></sub></td>
+            <td><sub>b<sub>23</sub></sub></td>
+        </tr>
+    </table>
+
+    <h2 class="operator">+</h2>
+
+    <table class="table ">
+        <tr>
+            <td><sub>c<sub>11</sub></sub></td>
+            <td id="three2by3mid5"><sub>c<sub>12</sub></sub></td>
+            <td><sub>c<sub>13</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>c<sub>21</sub></sub></td>
+            <td id="three2by3mid6"><sub>c<sub>22</sub></sub></td>
+            <td><sub>c<sub>23</sub></sub></td>
+        </tr>
+    </table>
+</div>
+
+
+
+<!--one 3-by-2-->
+<div class="one3by2">
+    <table class="table ">
+        <tr>
+            <td><sub>a<sub>11</sub></sub></td>
+            <td><sub>a<sub>12</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>21</sub></sub></td>
+            <td><sub>a<sub>22</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>31</sub></sub></td>
+            <td><sub>a<sub>32</sub></sub></td>
+        </tr>
+    </table>
+</div>
+
+
+<!--two 3-by-2-->
+<div class="two3by2">
+    <table class="table">
+        <tr>
+            <td><sub>a<sub>11</sub></sub></td>
+            <td><sub>a<sub>12</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>21</sub></sub></td>
+            <td><sub>a<sub>22</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>31</sub></sub></td>
+            <td><sub>a<sub>32</sub></sub></td>
+        </tr>
+    </table>
+
+    <h2 class="operator">+</h2>
+
+    <table class="table">
+        <tr>
+            <td><sub>b<sub>11</sub></sub></td>
+            <td><sub>b<sub>12</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>b<sub>21</sub></sub></td>
+            <td><sub>b<sub>22</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>b<sub>31</sub></sub></td>
+            <td><sub>b<sub>32</sub></sub></td>
+        </tr>
+    </table>
+</div>
+
+
+<!--three 3-by-2-->
+<div class="three3by2">
+    <table class="table ">
+        <tr>
+            <td><sub>a<sub>11</sub></sub></td>
+            <td><sub>a<sub>12</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>21</sub></sub></td>
+            <td><sub>a<sub>22</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>a<sub>31</sub></sub></td>
+            <td><sub>a<sub>32</sub></sub></td>
+        </tr>
+    </table>
+
+    <h2 class="operator">+</h2>
+
+    <table class="table ">
+        <tr>
+            <td><sub>b<sub>11</sub></sub></td>
+            <td><sub>b<sub>12</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>b<sub>21</sub></sub></td>
+            <td><sub>b<sub>22</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>b<sub>31</sub></sub></td>
+            <td><sub>b<sub>32</sub></sub></td>
+        </tr>
+    </table>
+
+    <h2 class="operator">+</h2>
+
+    <table class="table ">
+        <tr>
+            <td><sub>c<sub>11</sub></sub></td>
+            <td><sub>c<sub>12</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>c<sub>21</sub></sub></td>
+            <td><sub>c<sub>22</sub></sub></td>
+        </tr>
+        <tr>
+            <td><sub>c<sub>31</sub></sub></td>
+            <td><sub>c<sub>32</sub></sub></td>
+        </tr>
+    </table>
+</div>
+
+
+        <!--buttons-->
+        <div class="btnDiv">
+            <button class="inpBtn">0</button>
+            <button class="inpBtn">1</button>
+            <button class="inpBtn">2</button>
+            <button class="inpBtn">3</button>
+            <button class="inpBtn">4</button>
+            <button class="inpBtn">5</button>
+            <button class="inpBtn">6</button>
+            <button class="inpBtn">7</button>
+            <button class="inpBtn">8</button>
+            <button class="inpBtn">9</button>
+            <button class="inpBtn">-</button>
+
+            <button id="delBtn">&larr;</button>
+        </div>
+<button id="myanswer">Get Answer</button>
+    <a href="#"><button>Send Feedback</button></a>
+    
+    
+<p id="copytext" style="text-align: center">&copy;ARIB 2020 - </p>
+    
+</div>
+    <script src="matrices.js"></script>
+</body>
+</html>
